@@ -1,32 +1,36 @@
 package section6;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class ShapeApplication {
+public class ShapeApplication{
 
     private int capacity = 10;
     private Shape[] shapes = new Shape [capacity];
     private int n = 0;
-    private Scanner kb = new Scanner(System.in);
+    private Scanner  kb = new Scanner(System.in);
 
     public void processCommand() {
+        label:
         while(true) {
             System.out.print("$ ");
             String command = kb.next();
-            if (command.equals("add")) {
-                handleAdd();
-            } else if(command.equals("show") || command.equals("showdetail")) {
-                handleShow(command.equals("showdetail"));
-            } else if(command.equals("sort")) {
-                handleSort();
-            } else if(command.equals("exit")) {
-                break;
+            switch (command) {
+                case "add":
+                    handleAdd();
+                    break;
+                case "show":
+                case "showdetail":
+                    handleShow(command.equals("showdetail"));
+                    break;
+                case "sort":
+                    Arrays.sort(shapes, 0, n);
+                    break;
+                case "exit":
+                    break label;
             }
         }
         kb.close();
-    }
-
-    private void handleSort() {
     }
 
     private void handleShow(boolean detailed) {
